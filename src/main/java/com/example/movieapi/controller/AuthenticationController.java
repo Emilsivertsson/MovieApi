@@ -5,7 +5,6 @@ import com.example.movieapi.models.LoginResponseDTO;
 import com.example.movieapi.models.RegistrationDTO;
 import com.example.movieapi.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
