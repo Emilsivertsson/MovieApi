@@ -5,8 +5,12 @@ import java.security.KeyPairGenerator;
 
 public class KeyGeneratorUtility {
 
-    public static KeyPair generateRsaKey(){
 
+    /**
+     * This method is used to generate a RSA key pair with a key size of 2048
+     *
+     */
+    public static KeyPair generateRsaKey(){
         KeyPair keyPair;
 
         try{
@@ -19,5 +23,4 @@ public class KeyGeneratorUtility {
 
         return keyPair;
     }
-
 }

@@ -6,11 +6,18 @@ import java.security.interfaces.RSAPublicKey;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is used to store the RSA keys
+ * It is a singleton and is created when the application starts
+ * It uses KeyGeneratorUtility to generate the keys and stores them in the class
+ */
+
 @Component
 public class RSAKeyProperties {
 
     private RSAPublicKey publicKey;
     private RSAPrivateKey privateKey;
+
 
     public RSAKeyProperties(){
         KeyPair pair = KeyGeneratorUtility.generateRsaKey();

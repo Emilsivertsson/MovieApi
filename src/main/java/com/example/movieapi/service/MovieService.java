@@ -3,27 +3,25 @@ package com.example.movieapi.service;
 import com.example.movieapi.models.Movie;
 import com.example.movieapi.repository.MovieRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.extern.java.Log;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is the service for the movie CRUD
+ * It is responsible for handling the business logic for the movie routes
+ */
+
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 @Slf4j
 public class MovieService {
 
-    @Autowired
-    private MovieRepository movieRepository;
-
+    private final MovieRepository movieRepository;
     public ResponseEntity<String> deleteMovie(Long id) {
         try {
             if (movieRepository.existsById(id)) {
@@ -32,11 +30,11 @@ public class MovieService {
                 return ResponseEntity.ok("Movie deleted successfully");
             } else {
                 log.info("Movie not found");
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(404).body("Movie not found");
             }
         } catch (Exception e) {
             log.info("Error deleting movie");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).build();
         }
     }
 
@@ -49,7 +47,7 @@ public class MovieService {
             return ResponseEntity.ok(movieRepository.save(movieToUpdate));
         } catch (Exception e) {
             log.info("Error updating movie");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).build();
         }
     }
 
@@ -60,11 +58,11 @@ public class MovieService {
                 return ResponseEntity.ok(movieRepository.findById(id));
             } else {
                 log.info("Movie not found");
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(204).body(Optional.empty());
             }
         } catch (Exception e) {
             log.info("Error getting movie");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(Optional.empty());
         }
     }
 
@@ -73,14 +71,14 @@ public class MovieService {
             List<Movie> movies = movieRepository.findAll();
             if(movies.isEmpty()) {
                 log.info("No movies found");
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(204).body(List.of());
             } else {
                 log.info("Movies found");
                 return ResponseEntity.ok(movies);
             }
         } catch (Exception e) {
             log.info("Error getting movies");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(List.of());
         }
     }
 
@@ -90,7 +88,7 @@ public class MovieService {
             return ResponseEntity.ok(movieRepository.save(movie));
         } catch (Exception e) {
             log.info("Error creating movie");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).build();
         }
     }
 }

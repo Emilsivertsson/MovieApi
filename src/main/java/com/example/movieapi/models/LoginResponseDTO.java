@@ -1,32 +1,21 @@
 package com.example.movieapi.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * This class is used to represent the response from the login route
+ * It contains the user and the jwt token
+ */
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginResponseDTO {
     private ApplicationUser user;
     private String jwt;
-
-    public LoginResponseDTO() {
-        super();
-    }
-
-    public LoginResponseDTO(ApplicationUser user, String jwt) {
-        this.user = user;
-        this.jwt = jwt;
-    }
-
-    public ApplicationUser getUser() {
-        return this.user;
-    }
-
-    public void setUser(ApplicationUser user) {
-        this.user = user;
-    }
-
-    public String getJwt() {
-        return this.jwt;
-    }
-
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
-    }
 
 }

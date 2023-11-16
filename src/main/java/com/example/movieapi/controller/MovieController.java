@@ -4,26 +4,32 @@ import com.example.movieapi.models.Movie;
 import com.example.movieapi.service.MovieService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is the controller for the movie CRUD
+ * It is responsible for handling the requests and responses for the movie routes
+ */
+
 @RestController
 @RequestMapping("/")
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@CrossOrigin("*")
 public class MovieController {
 
-    @Autowired
-    private MovieService movieService;
+    private final MovieService movieService;
 
     @GetMapping("/{id}")
     public ResponseEntity <Optional<Movie>> getOneMovie (@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(movieService.getOneMovie(id).getBody());
+            return movieService.getOneMovie(id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -32,7 +38,7 @@ public class MovieController {
     @GetMapping("/")
     public ResponseEntity <List<Movie>> getAllMovies () {
         try {
-            return ResponseEntity.ok(movieService.getAllMovies().getBody());
+            return movieService.getAllMovies();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -41,7 +47,7 @@ public class MovieController {
     @PostMapping("/")
     public ResponseEntity <Movie> createMovie (@RequestBody Movie movie) {
         try {
-            return ResponseEntity.ok(movieService.createMovie(movie).getBody());
+            return movieService.createMovie(movie);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -50,7 +56,7 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public ResponseEntity <String> deleteMovie (@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(movieService.deleteMovie(id).getBody());
+            return movieService.deleteMovie(id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -59,7 +65,7 @@ public class MovieController {
     @PutMapping("/{id}")
     public ResponseEntity <Movie> updateMovie (@PathVariable Long id, @RequestBody Movie movie) {
         try {
-            return ResponseEntity.ok(movieService.updateMovie(id, movie).getBody());
+            return movieService.updateMovie(id, movie);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

@@ -21,6 +21,13 @@ public class MovieApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(MovieApiApplication.class, args);
     }
+
+
+    /**
+     * This method is used to create an admin user on startup
+     * It checks if the admin role exists and if it does not it creates it
+     * it the creates a new user with the admin role and saves it to the database
+     */
     @Bean
     CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
         return args ->{

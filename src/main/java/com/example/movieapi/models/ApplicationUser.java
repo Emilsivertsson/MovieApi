@@ -19,6 +19,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+/**
+ * ApplicationUser is used to represent a user in the database
+ * It implements UserDetails which is used by Spring Security to authenticate users.
+ * it has a few unused methods that are required by the UserDetails interface, some day i might implement them
+ */
+
 @Entity
 @Getter
 @Setter

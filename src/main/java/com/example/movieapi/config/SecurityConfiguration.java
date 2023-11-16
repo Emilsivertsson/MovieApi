@@ -27,6 +27,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.http.HttpMethod.*;
 
+/**
+ * This class is responsible for the security configuration
+ */
 
 @Configuration
 public class SecurityConfiguration {
@@ -37,11 +40,19 @@ public class SecurityConfiguration {
         this.keys = keys;
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * This method for the authentication manager
+     * that is used to authenticate the user and check if the user is valid
+     * it uses the user details service to get the user information
+     * and the password encoder to check if the password is valid
+     *
+     */
     @Bean
     public AuthenticationManager authManager(UserDetailsService detailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
@@ -50,6 +61,10 @@ public class SecurityConfiguration {
         return new ProviderManager(daoProvider);
     }
 
+    /**
+     * This method is responsible for the security filter
+     * that is used to filter the requests and check if the user is authenticated to access the route
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -74,11 +89,19 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * This method is responsible for the jwt decoder
+     * is uses the public key to decode the jwt token
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 
+    /**
+     * This method is responsible for the jwt encoder
+     * that is used to encode the jwt token and encode the user information in to it
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(keys.getPublicKey()).privateKey(keys.getPrivateKey()).build();
@@ -86,6 +109,11 @@ public class SecurityConfiguration {
         return new NimbusJwtEncoder(jwks);
     }
 
+    /**
+     * This method is responsible for the jwt authentication converter
+     * that is used to convert the roles property in the jwt token to role_ prefix
+     * so that it can be used in the spring security
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();

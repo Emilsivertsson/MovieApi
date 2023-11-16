@@ -1,5 +1,6 @@
 package com.example.movieapi.models;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Column;
@@ -8,8 +9,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Role is used to represent a role in the database
+ * It implements GrantedAuthority which is used by Spring Security to authenticate roles for users.
+ */
+
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="roles")
 public class Role implements GrantedAuthority {
 
@@ -20,34 +31,12 @@ public class Role implements GrantedAuthority {
 
     private String authority;
 
-    public Role(){
-        super();
-    }
 
     public Role(String authority){
         this.authority = authority;
     }
 
-    public Role(Integer roleId, String authority){
-        this.roleId = roleId;
-        this.authority = authority;
-    }
 
-    @Override
-    public String getAuthority() {
-        // TODO Auto-generated method stub
-        return this.authority;
-    }
 
-    public void setAuthority(String authority){
-        this.authority = authority;
-    }
 
-    public Integer getRoleId(){
-        return this.roleId;
-    }
-
-    public void setRoleId(Integer roleId){
-        this.roleId = roleId;
-    }
 }
