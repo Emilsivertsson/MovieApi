@@ -58,11 +58,10 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers(GET,"/").permitAll();
                     auth.requestMatchers(GET,"/**").permitAll();
-                    auth.requestMatchers(POST,"/").hasRole("USER");
-                    auth.requestMatchers(PUT,"/").hasRole("ADMIN");
-                    auth.requestMatchers(DELETE,"/").hasRole("ADMIN");
+                    auth.requestMatchers(POST,"/").permitAll();
+                    auth.requestMatchers(PUT,"/").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers(DELETE,"/").hasAnyRole("ADMIN", "USER");
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                    auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 });
 
