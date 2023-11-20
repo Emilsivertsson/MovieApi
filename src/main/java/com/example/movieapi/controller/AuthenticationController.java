@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+//this annotation is used to allow requests from any origin.
+//if only one origin is needed, it can be specified in the annotation upon deployment
 @CrossOrigin("*")
 public class AuthenticationController {
 
